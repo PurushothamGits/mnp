@@ -1,0 +1,48 @@
+pipeline {
+    agent {label "mnp-app-slave"}
+    stages{
+		stage ("create user") {
+			steps {
+				sh "sudo useradd test1"
+				}
+			}
+		stage ("list all users on home path") {
+			steps {
+			sh "ls -l /home"
+			}
+			}
+			
+		stage ("create a directory") {
+            steps {
+                sh "sudo mkdir /tmp/my-dir1"
+            }
+        }
+		
+        stage ("creating a file") {
+                 steps {
+                    sh '''
+                    sudo touch /tmp/my-dir1/test1.txt
+                    sudo chown -R jenkins:jenkins /tmp/my-dir1
+                    sudo chmod -R 775 /tmp/my-dir1
+                    sudo echo "Hi, we are learning devops in MNP. And MNP is a nice place to learn new tech" >> /tmp/my-dir1/test1.txt
+                    '''
+                 }
+            }
+		stage ("display file before replacing the word") {
+			steps {
+				sh "cat /tmp/my-dir1/test1.txt"
+				}
+		}
+		stage ("replacing MNP with MNPTech") {
+			steps {
+			sh "sudo sed 's/MNP/MNPTech/g' /tmp/my-dir1/test1.txt >> /tmp/my-dir1/test2.txt"
+			}
+		
+		}
+		stage ("display the new file after replacing the word in old file") {
+			steps {
+				sh "cat /tmp/my-dir1/test2.txt"
+				}
+		}
+	}
+}

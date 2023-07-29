@@ -1,0 +1,58 @@
+pipeline{
+    agent {label "mnp-dev-slave"}
+    stages{
+        stage ("User List") {
+            steps {
+                sh "cat /etc/passwd"
+                
+            }
+        }
+        stage ("To Check Memory") {
+            steps {
+                sh "df -h"
+            }
+        }
+        stage ("OS Format") {
+            steps {
+                sh "cat /etc/os-release"
+            }
+        }
+        stage ("Stage with") {
+            steps {
+                sh '''
+                df -h
+                '''
+            }
+
+        }
+        stage ("Create a directory") {
+            steps {
+                sh "sudo mkdir /tmp/my-test05"
+            }
+        }
+        stage ("Add the file to the Directory") {
+            steps {
+                sh '''
+                sudo touch /tmp/my-test05/test1.txt
+                sudo chown -R jenkins:jenkins /tmp/my-test05
+                sudo chmod -R 777 /tmp/my-test05
+                sudo echo "Hi,this is my new file" >> /tmp/my-test05/test1.txt
+                '''
+            }
+        }
+        stage ("Show what is in the file") {
+            steps {
+                sh '''
+                sudo cat /tmp/my-test05/test1.txt
+                '''
+            }
+        }
+        stage ("Create a user") {
+            steps {
+                sh '''
+                sudo adduser user001
+                '''
+            }
+        }
+    }
+}

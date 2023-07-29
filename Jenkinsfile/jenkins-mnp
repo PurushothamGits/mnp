@@ -1,7 +1,7 @@
 pipeline{
     agent {label "mnp-app-slave"}
     stages{
-        stage ('Git Clone'){
+        stage ('Git Clone '){
             steps {
                 checkout scm
             }

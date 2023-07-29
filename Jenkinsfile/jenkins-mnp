@@ -1,0 +1,17 @@
+pipeline{
+    agent {label "mnp-app-slave"}
+    stages{
+        stage ('Git Clone'){
+            steps {
+                checkout scm
+            }
+        }
+        stage ("Deployment") {
+            steps {
+                sh '''
+                sudo cp /var/lib/jenkins/workspace/${JOB_NAME}/index.html /var/www/html
+                '''
+            }
+        }
+    }
+}

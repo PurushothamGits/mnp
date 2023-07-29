@@ -1,9 +1,9 @@
 pipeline {
-    agent {label "mnp-app-slave"}
+    agent {label "mnp-dev-slave"}
     stages{
 		stage ("create user") {
 			steps {
-				sh "sudo useradd test1"
+				sh "sudo useradd tests"
 				}
 			}
 		stage ("list all users on home path") {

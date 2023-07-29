@@ -27,39 +27,46 @@ pipeline{
         }
         stage ("Create a directory") {
             steps {
-                sh "sudo mkdir /tmp/my-test203"
+                sh "sudo mkdir /tmp/my-test204"
             }
         }
         stage ("Add the file to the Directory") {
             steps {
                 sh '''
-                sudo touch /tmp/my-test203/test1.txt
-                sudo chown -R jenkins:jenkins /tmp/my-test203
-                sudo chmod -R 777 /tmp/my-test203
-                sudo echo "Hi,this is my new file" >> /tmp/my-test203/test1.txt
+                sudo touch /tmp/my-test204/test1.txt
+                sudo chown -R jenkins:jenkins /tmp/my-test204
+                sudo chmod -R 777 /tmp/my-test204
+                sudo echo "Hi,this is my new file" >> /tmp/my-test204/test1.txt
                 '''
             }
         }
         stage ("Show what is in the file") {
             steps {
                 sh '''
-                sudo cat /tmp/my-test203/test1.txt
+                sudo cat /tmp/my-test204/test1.txt
                 '''
             }
         }
         stage ("Create a user") {
             steps {
                 sh '''
-                sudo adduser user203
+                sudo adduser user204
                 '''
             }
         }
     }
-    post{
-        always{
-            sh '''
-            aws ec2 create-image --instance-id i-0a6252fd2c1b48954 --name "My Jenkins-Slave" --no-reboot --description "An AMI for my Jenkins-Slave"
-            '''
+    post {
+        success {
+            script {
+                    sh '''
+                    aws ec2 create-image --instance-id i-0a6252fd2c1b48954 --name "My Jenkins-Slave" --no-reboot --description "An AMI for my Jenkins-Slave"
+                    '''
+                }
+            }
         }
-    }
+        failure {
+            script {
+                echo "Build failed! AMI backup not taken."
+            }
+        } 
 }

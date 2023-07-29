@@ -1,5 +1,5 @@
 pipeline{
-    agent {label "mnp-dev-slave"}
+    agent {label "mnp-app-slave"}
     stages{
         stage ("User List") {
             steps {

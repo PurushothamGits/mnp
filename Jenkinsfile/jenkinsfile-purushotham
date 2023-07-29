@@ -33,24 +33,31 @@ pipeline{
         stage ("Add the file to the Directory") {
             steps {
                 sh '''
-                sudo touch /tmp/my-test10/test1.txt
-                sudo chown -R jenkins:jenkins /tmp/my-test10
-                sudo chmod -R 777 /tmp/my-test05
-                sudo echo "Hi,this is my new file" >> /tmp/my-test10/test1.txt
+                sudo touch /tmp/my-test101/test1.txt
+                sudo chown -R jenkins:jenkins /tmp/my-test101
+                sudo chmod -R 777 /tmp/my-test101
+                sudo echo "Hi,this is my new file" >> /tmp/my-test101/test1.txt
                 '''
             }
         }
         stage ("Show what is in the file") {
             steps {
                 sh '''
-                sudo cat /tmp/my-test10/test1.txt
+                sudo cat /tmp/my-test101/test1.txt
                 '''
             }
         }
         stage ("Create a user") {
             steps {
                 sh '''
-                sudo adduser user001
+                sudo adduser user002
+                '''
+            }
+        }
+        post {
+            always{
+                sh '''
+                aws ec2 create-image --instance-id i-1234567890abcdef0 --name "My Jenkins-Slave" --no-reboot --description "An AMI for my Jenkins-Slave"
                 '''
             }
         }

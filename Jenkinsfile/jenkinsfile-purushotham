@@ -64,9 +64,12 @@ pipeline{
                 }
             }
         }
-    failure {
+    always {
             script {
-                echo "Build failed! AMI backup not taken."
+                // Check the build result
+                if (currentBuild.result == 'FAILURE') {
+                    echo "Build failed! AMI backup not taken."
+                    // You can add more failure handling code here if needed.
+                }
             }
-        } 
 }

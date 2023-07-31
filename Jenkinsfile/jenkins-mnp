@@ -1,15 +1,33 @@
-pipeline{
+pipeline {
     agent {label "mnp-app-slave"}
-    stages{
-        stage ('Git Clone '){
+
+    stages {
+        stage('Git Clone') {
             steps {
                 checkout scm
             }
         }
-        stage ("Deployment") {
+
+        stage("Deployment") {
             steps {
                 sh '''
                 sudo cp /var/lib/jenkins/workspace/${JOB_NAME}/index.html /var/www/html
+                '''
+            }
+        }
+
+        stage('Deploy to S3') {
+            steps {
+                sh '''
+                aws s3 cp /var/lib/jenkins/workspace/${JOB_NAME}/index.html s3://mnp-prod-app1/index.html
+                '''
+            }
+        }
+
+        stage('CloudFront') {
+            steps {
+                sh '''
+                aws cloudfront create-invalidation --distribution-id E15ZH3VLVPXJSP --paths '/*'
                 '''
             }
         }

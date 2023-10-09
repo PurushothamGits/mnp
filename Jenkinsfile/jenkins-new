@@ -9,7 +9,9 @@ pipeline {
         stage('Deployment') {
             steps {
                 script {
-                    sh "cp var/lib/jenkins/workspace/pipeline-02/purushotham.html /var/www/html"
+                   sh '''
+                   sudo cp var/lib/jenkins/workspace/pipeline-02/purushotham.html /var/www/html
+                    '''
                 }
             }
         }

@@ -1,16 +1,14 @@
 pipeline{
     agent any
-   stages {
-        stage('Git Clone') {
+    stages{
+        stage('Git clone'){
             steps {
                 checkout scm
             }
         }
-
-        stage("Deployment") {
-            steps {
-                sh '''
-               sudo cp var/lib/jenkins/workspace/pipeline-02/purushotham.html var/www/html
+         stage("Deployment"){
+            sh '''
+            cp var/lib/jenkins/workspace/pipeline-02/purushotham.html var/www/html
             '''
         }
     }

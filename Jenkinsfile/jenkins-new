@@ -1,0 +1,16 @@
+pipeline{
+    agent any
+    stages{
+        stage('Git clone'){
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Deployment'){
+            sh '''
+            cp var/lib/jenkins/workspace/pipeline-01/index.html var/www/html
+            '''
+        }
+    }
+}

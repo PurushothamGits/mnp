@@ -10,7 +10,7 @@ pipeline {
             steps {
                 script {
                    sh '''
-                   sudo cp var/lib/jenkins/workspace/pipeline-02/purushotham.html /var/www/html
+                   sudo cp var/lib/jenkins/workspace/pipeline-02/index.html /var/www/html
                     '''
                 }
             }

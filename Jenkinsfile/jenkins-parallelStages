@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Parallel Stages') {
+            parallel {
+                stage('Stage 1') {
+                    steps {
+                        echo 'Running Stage 1'
+                        sh "cat /etc/passwd"
+                    }
+                }
+                stage('Stage 2') {
+                    steps {
+                        echo 'Running Stage 2'
+                        sh "df -h"
+                    }
+                }
+                stage('Stage 3') {
+                    steps {
+                        echo 'Running Stage 3'
+                        sh "cat /etc/os-release"
+                    }
+                }
+            }
+        }
+    }
+}

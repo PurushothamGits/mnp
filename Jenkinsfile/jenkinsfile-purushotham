@@ -59,7 +59,7 @@ pipeline{
         success {
             script {
                     sh '''
-                    aws ec2 create-image --instance-id i-0a6252fd2c1b48954 --name "My Jenkins-Slave" --no-reboot --description "An AMI for my Jenkins-Slave"
+                    aws ec2 create-image --instance-id i-070a320e95d48abe9 --name "My Jenkins-Slave" --no-reboot --description "An AMI for my Jenkins-Slave"
                     '''
                 }
             }

@@ -1,5 +1,5 @@
 pipeline {
-    agent {label 'mnp-dev-app-agent'}
+    agent {label 'mnp-app-slave'}
     stages {    
         stage('Running on MNP-Dev Environment') {
             steps{
@@ -10,7 +10,7 @@ pipeline {
                 echo "Deploying on MNP-DEV Environment by Code deploy"    
                 step([$class: 'AWSCodeDeployPublisher',
                        applicationName:'mnptech-cd-ap',
-                       awsAccessKey: '', awsSecretKey: '', deploymentConfig: 'CodeDeployDefault.OneAtATime', deploymentGroupAppspec: false, deploymentGroupName: 'mnptech-deploy', excludes: '', iamRoleArn: '', includes: '**', proxyHost: '', proxyPort: 0, region: 'us-east-1', s3bucket: 'mnptech-app-098', s3prefix: 'mnp-dev', subdirectory: '', versionFileName: '', waitForCompletion: false]
+                       awsAccessKey: '', awsSecretKey: '', deploymentConfig: 'CodeDeployDefault.OneAtATime', deploymentGroupAppspec: false, deploymentGroupName: 'mnptech-deploymentGP', excludes: '', iamRoleArn: '', includes: '**', proxyHost: '', proxyPort: 0, region: 'us-east-1', s3bucket: 'mnptech-app-0001', s3prefix: 'mnp-dev', subdirectory: '', versionFileName: '', waitForCompletion: false]
                     )    
             }    
         }                
